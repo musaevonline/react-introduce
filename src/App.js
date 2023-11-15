@@ -96,7 +96,7 @@ function Apprakadabra() {
               </Typography>
             </CardContent>
           </Card>
-          <Box display="flex" alignItems="center" gap={2} m={5}>
+          <Box display="flex" alignItems="center" gap={2} m={5} sx={{ flexDirection: { xs: 'column', md: 'row' } }}>
             <TextField value={amount} onChange={e => setAmount(e.target.value)} />
             <Typography>*</Typography>
             <TextField disabled value={choosenData.Value} />
