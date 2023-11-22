@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { MyCard } from '../components/Card';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { useStorageState } from 'react-storage-hooks';
+import { getData } from '../components/data';
 
 function CartPage() {
     const [data, setData] = useState([]);
@@ -14,7 +15,7 @@ function CartPage() {
 
 
     const fetchData = () => {
-        fetch(`http://localhost:9999/data`).then(res => res.json()).then(setData)
+        setData(getData())
     }
 
     useEffect(() => {

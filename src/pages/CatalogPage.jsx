@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { MyCard } from '../components/Card';
 import { Box, Button, TextField } from '@mui/material';
 import { useStorageState } from 'react-storage-hooks';
+import { getData } from '../components/data';
 
 function CatalogPage() {
     const [data, setData] = useState([]);
@@ -22,7 +23,7 @@ function CatalogPage() {
     const fetchData = () => {
         const priceFromNumber = Number(priceFrom) || 0
         const priceToNumber = Number(priceTo) || 0
-        fetch(`http://localhost:9999/data?priceFrom=${priceFromNumber}&priceTo=${priceToNumber}`).then(res => res.json()).then(setData)
+        setData(getData(priceFromNumber, priceToNumber))
     }
 
     useEffect(() => {
