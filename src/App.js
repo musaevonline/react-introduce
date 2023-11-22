@@ -1,23 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from 'react';
+import { MyCard } from './components/Card';
+import { Box, Button, TextField } from '@mui/material';
 
 function App() {
+  const [data, setData] = useState([]);
+  const [priceFrom, setPriceFrom] = useState('');
+  const [priceTo, setPriceTo] = useState('');
+
+  const fetchData = () => {
+    const priceFromNumber = Number(priceFrom) || 0
+    const priceToNumber = Number(priceTo) || 0
+    fetch(`http://localhost:9999/data?priceFrom=${priceFromNumber}&priceTo=${priceToNumber}`).then(res => res.json()).then(setData)
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Box display="flex">
+        <TextField label="Цена от" onChange={e => setPriceFrom(e.target.value)} />
+        <TextField label="Цена до" onChange={e => setPriceTo(e.target.value)} />
+        <Button onClick={fetchData}>Применить</Button>
+      </Box>
+      {data.map(row => (
+        <MyCard title={row.title} desc={row.desc} img={row.img} price={row.price} />
+      ))}
     </div>
   );
 }
